@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        .table {
+            display: table;
+            margin: auto;
+            transition: 0.4s;
+        }
+
+        body {
+            font-family: fantasy;
+        }
+
+        .topNav {
+            position: sticky;
+            top: 0;
+            width: 100%;
+            transition: 0.5s;
+            z-index: 9999;
+        }
+
+        .topNav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #460072;
+        }
+
+        .topNav li {
+            float: left;
+        }
+
+        .topNav li div {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        .topNav .menuIcon:hover {
+            opacity: 0.7;
+            cursor: pointer;
+        }
+
+        .searchBar {
+            width: 100%;
+            position: relative;
+        }
+
+        .searchTerm {
+            float: left;
+            width: 100%;
+            border: 3px solid #f37e8d;
+            padding: 5px;
+            height: 20px;
+            border-radius: 5px;
+            color: #9DBFAF;
+            padding: 15px;
+            font-size: medium;
+        }
+
+        .searchTerm:focus {
+            color: #000000;
+        }
+
+        .searchButton {
+            position: absolute;
+            width: 40px;
+            height: 36px;
+            border: 1px solid #f37e8d;
+            background: #f37e8d;
+            text-align: center;
+            color: #460072;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 20px;
+        }
+
+        .row {
+            float: left;
+            display: flex;
+            width: 100%;
+            padding: 0px;
+            list-style: none;
+            margin-bottom: 0px;
+        }
+
+        @media screen and (max-width: 600px) {
+            .row {
+                width: 100%;
+                display: block;
+                margin-bottom: 0px;
+            }
+        }
+
+        .card {
+            color: #ffffff;
+            box-shadow: 0 4px 8px 0 rgba(58, 2, 2, 0.2);
+            padding: 5px;
+            text-align: center;
+            background-color: #f37e8d;
+            position: relative;
+            max-width: 800px;
+            color: #460072;
+            border-radius: 5px;
+            border: solid;
+        }
+
+        .imageText {
+            opacity: 0;
+            position: absolute;
+            background: rgb(0, 0, 0);
+            background: rgba(0, 0, 0, 0.3);
+            color: #ffffff;
+            width: 100%;
+            position: relative;
+        }
+
+        .card:hover .imageText {
+            transition: .3s ease;
+            opacity: 1;
+        }
+
+        img.ingredient {
+            height: 5%;
+            width: 5%;
+        }
+
+        .img {
+            display: block;
+            width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
+
+        .img:hover {
+            transition: .3s ease;
+            opacity: 0.3;
+            cursor: pointer;
+        }
+
+        .content {
+            background-color: #f37e8d;
+            display: none;
+            color: #ffffff;
+            padding: 0%;
+            max-height: 0;
+            width: 0;
+            text-align: center;
+            font-size: large;
+            transition: padding 0.4s ease-out;
+            transition: max-height 0.4s ease-out;
+            color: #460072;
+            
+        }
+
+        .content ul {
+            list-style: none;
+        }
+
+        @media screen and (max-height: 450px) {
+            .sidebar {
+                padding-top: 15px;
+                font-size: 18px;
+            }
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0, 0, 0);
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        .modalContent {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+        }
+
+        .closeModalButton {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .closeModalButton:hover,
+        .closeModalButton:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .sideBar {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            background-color: rgb(248, 250, 109);
+            padding-top: 60px;
+            transition: all 0.5s;
+            border-radius: 0px 400px 1500px 0px;
+            border: solid;
+        }
+
+        .menuOption {
+            padding: 8px 8px 8px 32px;
+            font-size: 25px;
+            background-color: rgb(248, 250, 109);
+            display: none;
+            width: 100%;
+            font-family: fantasy;
+        }
+
+        button {
+            text-decoration: none;
+            border: none;
+            outline: none
+        }
+
+        .menuOption :hover {
+            color: #08aefc;
+            cursor: pointer;
+        }
+
+        .menuButtonText {
+            color: #212b86;
+            left: 0%;
+        }
+
+        .myListButton {
+            background-color: rgb(255, 225, 92);
+            border-radius: 10px;
+            color: #030b55;
+            font-family: fantasy;
+        }
+
+        .myListButton :hover {
+            opacity: 0.7;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        .categoriesMenu {
+            display: none;
+            max-height: 0;
+            transition: 0.4s;
+        }
+
+        .categoriesMenu .menuOption {
+            display: none;
+            max-height: 0;
+            transition: 0.4s;
+            font-size: medium;
+            color: #212b86;
+        }
+    </style>
+</head>
+<title>Demo</title>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css"
+    integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+
+<body>
+    <div id="topNav" class="topNav">
+        <ul>
+            <li>
+                <div class="menuIcon" onclick="openMenu()">
+                    <i class="fas fa-align-justify" style="font-size: 2.2em;"></i>
+                </div>
+            </li>
+            <li>
+                <div class="searchBar" id="searchBar">
+                    <input type="text" class="searchTerm" id="searchLine" placeholder="Look for a drink ...">
+                    <button type="submit" class="searchButton" id="searchButton">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="sideBar" id="sideBar" onmouseleave="closeMenu()">
+        <button class="menuOption">
+            <span class="menuButtonText" onclick="loadAllDrinks()">All Drinks</span>
+        </button>
+        <button class="menuOption">
+            <span class="menuButtonText" onclick="loadMyDrinks()">My Drinks</span>
+        </button>
+        <button class="menuOption" onclick="toggleCategoriesList()">
+            <span class="menuButtonText">Categories
+                <i class="fas fa-angle-down" id="categoriesArrow"></i>
+            </span>
+            <div class="categoriesMenu" id="categoriesMenu"></div>
+        </button>
+    </div>
+    <div class="table" id="table">
+    </div>
+</body>
+<script src="CocktailsDB.js"></script>
+
+</html>
