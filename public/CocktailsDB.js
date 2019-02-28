@@ -127,7 +127,12 @@ function fetchDrinksByCategory(category) {
             });//TODO .catch(...)
     });
 }
-
+function DrinkContent(isAlcoholic, glass, ingredients, instructions) {
+    this.isAlcoholic = isAlcoholic;
+    this.glass = glass;
+    this.ingredients = ingredients;
+    this.instructions = instructions;
+}
 function Drink(id, name, imageSrc, category) {
     this.id = id;
     this.name = name;
@@ -139,12 +144,7 @@ Drink.prototype.setDrinkContent = function (drinkContent) {
     this.drinkContent = drinkContent;
 }
 
-function DrinkContent(isAlcoholic, glass, ingredients, instructions) {
-    this.isAlcoholic = isAlcoholic;
-    this.glass = glass;
-    this.ingredients = ingredients;
-    this.instructions = instructions;
-}
+
 
 function createContentDomElement(drink) {
 
