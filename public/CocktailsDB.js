@@ -127,6 +127,7 @@ function fetchDrinksByCategory(category) {
             });//TODO .catch(...)
     });
 }
+
 function DrinkContent(isAlcoholic, glass, ingredients, instructions) {
     this.isAlcoholic = isAlcoholic;
     this.glass = glass;
@@ -143,8 +144,6 @@ function Drink(id, name, imageSrc, category) {
 Drink.prototype.setDrinkContent = function (drinkContent) {
     this.drinkContent = drinkContent;
 }
-
-
 
 function createContentDomElement(drink) {
 
